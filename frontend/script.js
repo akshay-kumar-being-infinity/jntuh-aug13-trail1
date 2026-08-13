@@ -42,5 +42,26 @@ function randomUser(){
         .catch(function(err){
             console.log("Error occured : " + err);
         })
-        
+
+}
+
+// This one calls OUR OWN api (the one we wrote in server.js)
+// instead of somebody else's public api.
+function myRandomUser(){
+    var userImage = document.getElementById("user-image");
+    var userName = document.getElementById("user-name");
+    var userGender = document.getElementById("user-gender");
+
+    fetch("/api/users/random-user")
+        .then(function(res){
+            return res.json();
+        })
+        .then(function(data){
+            userImage.src = data.image;
+            userName.innerHTML = data.name;
+            userGender.innerHTML = data.gender;
+        })
+        .catch(function(err){
+            console.log("Error occured : " + err);
+        })
 }
